@@ -25,25 +25,40 @@ mvn clean install
 mvn spring-boot:run
 
 Sample API Requests
-1. Create Coupon
-
+1. To Create Coupon
 POST /api/coupons
 
 {
-  "code": "WELCOME100",
-  "description": "Flat 100 off for new users",
+  "code": "HOME50",
+  "description": "Flat ₹50 off on home items",
   "discountType": "FLAT",
-  "discountValue": 100,
-  "startDate": "2025-01-01",
+  "discountValue": 50,
+  "maxDiscountAmount": null,
+  "startDate": "2025-05-01",
   "endDate": "2025-12-31",
-  "usageLimitPerUser": 1,
+  "usageLimitPerUser": 3,
   "eligibility": {
-    "allowedUserTiers": ["NEW"]
+    "minCartValue": 500,
+    "applicableCategories": ["home"],
+    "minItemsCount": 1
   }
 }
+3.To Check duplicate Coupon is accepted or not
+{
+  "code": "QUICK25",
+  "description": "25% off up to ₹100",
+  "discountType": "PERCENT",
+  "discountValue": 25,
+  "maxDiscountAmount": 100,
+  "startDate": "2025-03-01",
+  "endDate": "2025-08-30",
+  "eligibility": {
+    "minCartValue": 100,
+    "minItemsCount": 1
+  }
+} 
 
-2. Best Coupon
-
+2. To get Best Coupon
 POST /api/coupons/best
 
 {
@@ -67,3 +82,4 @@ AI tools were used to plan the API structure and logic.
 Example prompts:
 “Create a Spring Boot REST API for coupon management with eligibility rules.”
 “Implement best coupon selection logic based on discount, expiry, and code.”
+
