@@ -46,4 +46,14 @@ public class CouponService {
         return (c.getStartDate().isEqual(now) || c.getStartDate().isBefore(now))
                 && (c.getEndDate().isEqual(now) || c.getEndDate().isAfter(now));
     }
+
+    public List<Coupon> getAllCoupons() {
+        return repository.findAll();
+    }
+
+    public Coupon getCouponByCode(String code) {
+        return repository.findByCode(code)
+                .orElseThrow(() -> new IllegalArgumentException("Coupon not found: " + code));
+    }
+
 }
